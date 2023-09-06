@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
+import {S} from './styles/Styles'
 
 type TaskType = {
     id: string
@@ -46,7 +47,8 @@ export function Todolist(props: PropsType) {
     const onActiveClickHandler = () => props.changeFilter("active");
     const onCompletedClickHandler = () => props.changeFilter("completed");
 
-    return <div>
+    return (
+        <S.Todolist>
         <h3>{props.title}</h3>
         <div>
             <input
@@ -58,20 +60,20 @@ export function Todolist(props: PropsType) {
             <button onClick={addTask}>+</button>
             {error && <div className={'error-text'}>Title is required</div>}
         </div>
-        <ul>
+        <S.Items>
             {
                 props.tasks.map(t => {
                     const onClickHandler = () => props.removeTask(t.id)
                     const onChangeAlterTaskHandler = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked)
 
-                    return <li key={t.id} className={t.isDone ? 'task-done' : 'task'}>
+                    return <S.List key={t.id} className={t.isDone ? 'task-done' : 'task'}>
                         <input type="checkbox" checked={t.isDone} onChange={onChangeAlterTaskHandler}/>
                         <span>{t.title}</span>
                         <button onClick={onClickHandler}>x</button>
-                    </li>
+                    </S.List>
                 })
             }
-        </ul>
+        </S.Items>
         <div>
             <button className={props.filter === 'all' ? 'btn-filter-active' : 'btn'} onClick={onAllClickHandler}>All
             </button>
@@ -82,5 +84,6 @@ export function Todolist(props: PropsType) {
                     onClick={onCompletedClickHandler}>Completed
             </button>
         </div>
-    </div>
+    </S.Todolist>
+    )
 }
