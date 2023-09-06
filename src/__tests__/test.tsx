@@ -11,7 +11,6 @@ let tasks: TaskType[] = [
     {id: v1(), title: "Rest API", isDone: false},
     {id: v1(), title: "GraphQL", isDone: false},
 ]
-
 test('Big test', () => {
     render(<App/>)
     //проверяем длинну массива
